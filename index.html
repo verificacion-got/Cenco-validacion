@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación de Certificado - CFT CENCO</title>
+    <style>
+        /* ESTILOS GENERALES PARA QUE SE VEA COMO EN EL CELULAR */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1; /* Empuja el footer hacia abajo */
+        }
+
+        /* HEADER Y LOGO */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .logo-img {
+            max-width: 220px;
+            height: auto;
+        }
+
+        .divider {
+            height: 4px;
+            background-color: #f7a700; /* Naranja corporativo */
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 500; /* Letra un poco más fina como en la foto */
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-family: sans-serif; /* Condensed style simulation */
+        }
+
+        /* VISTA DE BÚSQUEDA (FORMULARIO) */
+        #search-view label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9; /* Fondo gris claro */
+            box-sizing: border-box; /* Para que el padding no rompa el ancho */
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .btn-verificar {
+            background-color: #f0ad4e; /* Naranja botón */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100px; /* Tamaño aproximado */
+        }
+
+        .btn-verificar:hover {
+            background-color: #ec971f;
+        }
+
+        /* VISTA DE RESULTADO (CERTIFICADO) */
+        #result-view {
+            display: none; /* Oculto por defecto */
+            text-align: center;
+        }
+
+        .cert-text {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .student-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #444;
+            text-transform: uppercase;
+            margin: 25px 0;
+        }
+
+        .rut {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 25px;
+        }
+
+        .title-name {
+            font-size: 17px;
+            text-transform: uppercase;
+            color: #444;
+            margin: 20px 0;
+            padding: 0 10px;
+        }
+
+        .grade-info {
+            font-size: 15px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .distincion {
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .registry-info {
+            font-weight: bold;
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* FOOTER NEGRO */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        /* BOTÓN FLOTANTE CHAT */
+        .chat-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff; /* Azul chat */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-container">
+            <img src="https://via.placeholder.com/250x80/ffffff/f7a700?text=CFT+CENCO+LOGO" alt="Logo CFT" class="logo-img">
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>Validación De Certificado</h2>
+
+        <div id="search-view">
+            <label for="codigoInput">Codigo</label>
+            <input type="text" id="codigoInput" class="input-box" placeholder="">
+            
+            <button class="btn-verificar" onclick="verificarCodigo()">Verificar</button>
+        </div>
+
+        <div id="result-view">
+            <div class="cert-text">
+                El Centro de Formación<br>
+                Técnica CENCO<br>
+                certifica que,<br>
+                habiendo<br>
+                cumplido los<br>
+                requisitos de<br>
+                titulación,<br>
+                don(ña):
+            </div>
+
+            <div class="student-name">
+                ALBERTO ANTONIO TORRES<br>DUHALDE
+            </div>
+
+            <div class="rut">
+                Rut : 12.697.566-K
+            </div>
+
+            <div class="cert-text">
+                Obtuvo el Título de
+            </div>
+
+            <div class="title-name">
+                TÉCNICO DE NIVEL SUPERIOR EN ADMINISTRACIÓN PÚBLICA
+            </div>
+
+            <div class="grade-info">
+                El estudiante obtuvo una nota final de 6,5 (seis<br>
+                coma cinco ), siendo aprobada con:
+            </div>
+
+            <div class="distincion">
+                Con Distinción Máxima
+            </div>
+
+            <div class="registry-info">
+                Registro de Título Nº 6955 - Santiago
+            </div>
+
+            <div class="registry-info">
+                Certificado emitido el 6 January 2026
+            </div>
+            <br><br>
+        </div>
+    </div>
+
+    <div class="footer">
+        Todos los derechos reservados a CFTcenco 2019
+    </div>
+
+    <div class="chat-btn">
+        <span>✉️</span> Deja tu mensaje
+    </div>
+
+    <script>
+        function verificarCodigo() {
+            // 1. Obtenemos lo que escribió el usuario
+            var codigoIngresado = document.getElementById("codigoInput").value;
+            
+            // Elimina espacios en blanco por si acaso
+            codigoIngresado = codigoIngresado.trim();
+
+            // 2. El código que aparece en tu foto
+            var codigoCorrecto = "765174600e18cfc7580457b2dbefdfc7";
+
+            // 3. Comparamos
+            if (codigoIngresado === codigoCorrecto) {
+                // Si es correcto, ocultamos el buscador y mostramos el resultado
+                document.getElementById("search-view").style.display = "none";
+                document.getElementById("result-view").style.display = "block";
+            } else {
+                // Si es incorrecto, mostramos alerta
+                alert("Código no válido. Por favor verifique.");
+            }
+        }
+    </script>
+
+</body>
+</html>
