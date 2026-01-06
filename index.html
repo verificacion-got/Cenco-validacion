@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validación de Certificado - CFT CENCO</title>
     <style>
-        /* ESTILOS GENERALES PARA QUE SE VEA COMO EN EL CELULAR */
+        /* ESTILOS GENERALES (IGUAL AL ANTERIOR) */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -21,10 +21,9 @@
             max-width: 500px;
             margin: 0 auto;
             padding: 20px;
-            flex: 1; /* Empuja el footer hacia abajo */
+            flex: 1; 
         }
 
-        /* HEADER Y LOGO */
         .logo-container {
             text-align: center;
             margin-bottom: 5px;
@@ -37,136 +36,134 @@
 
         .divider {
             height: 4px;
-            background-color: #f7a700; /* Naranja corporativo */
+            background-color: #f7a700;
             width: 100%;
             margin-bottom: 20px;
         }
 
         h2 {
             font-size: 26px;
-            font-weight: 500; /* Letra un poco más fina como en la foto */
+            font-weight: 500;
             color: #333;
             margin-top: 0;
             margin-bottom: 20px;
-            font-family: sans-serif; /* Condensed style simulation */
         }
 
-        /* VISTA DE BÚSQUEDA (FORMULARIO) */
-        #search-view label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-
-        .input-box {
-            width: 100%;
-            padding: 12px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #f9f9f9; /* Fondo gris claro */
-            box-sizing: border-box; /* Para que el padding no rompa el ancho */
+        /* ESTILOS DEL reCAPTCHA FALSO */
+        .captcha-box {
+            background-color: #f9f9f9;
+            border: 1px solid #d3d3d3;
+            border-radius: 3px;
+            width: 300px; /* Ancho estándar de recaptcha */
+            height: 74px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
             margin-bottom: 20px;
+            box-shadow: 0 0 4px 1px rgba(0,0,0,0.08);
+            user-select: none;
+        }
+
+        .captcha-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #c1c1c1;
+            border-radius: 2px;
+            background-color: white;
+            cursor: pointer;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .captcha-checkbox:hover {
+            border-color: #b2b2b2;
+        }
+
+        .captcha-label {
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            flex-grow: 1;
+        }
+
+        .captcha-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.5;
+        }
+        
+        /* Simulación visual del logo de recaptcha con CSS puro */
+        .recaptcha-icon {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #555;
+            border-radius: 50%;
+            border-top-color: transparent;
+            margin-bottom: 2px;
+        }
+        
+        .recaptcha-text {
+            font-size: 10px;
             color: #555;
         }
 
+        /* Animación de carga (spinner) */
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: none; /* Oculto al inicio */
+        }
+
+        /* Check verde */
+        .checkmark {
+            color: #009e55;
+            font-size: 22px;
+            font-weight: bold;
+            display: none; /* Oculto al inicio */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         .btn-verificar {
-            background-color: #f0ad4e; /* Naranja botón */
+            background-color: #f0ad4e;
             color: white;
             border: none;
             padding: 10px 20px;
             font-size: 16px;
             border-radius: 4px;
-            cursor: pointer;
-            width: 100px; /* Tamaño aproximado */
+            cursor: pointer; /* Inicialmente parecerá clicable */
+            width: 100px;
         }
 
-        .btn-verificar:hover {
-            background-color: #ec971f;
-        }
-
-        /* VISTA DE RESULTADO (CERTIFICADO) */
+        /* VISTA DE RESULTADO */
         #result-view {
-            display: none; /* Oculto por defecto */
+            display: none;
             text-align: center;
         }
 
-        .cert-text {
-            color: #555;
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
+        .cert-text { color: #555; font-size: 16px; line-height: 1.5; margin-bottom: 20px; }
+        .student-name { font-size: 20px; font-weight: bold; color: #444; text-transform: uppercase; margin: 25px 0; }
+        .rut { font-size: 16px; color: #444; margin-bottom: 25px; }
+        .title-name { font-size: 17px; text-transform: uppercase; color: #444; margin: 20px 0; padding: 0 10px; }
+        .grade-info { font-size: 15px; color: #444; margin-bottom: 20px; }
+        .distincion { font-weight: bold; margin-bottom: 30px; color: #333; }
+        .registry-info { font-weight: bold; font-size: 15px; color: #333; margin-bottom: 15px; }
 
-        .student-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #444;
-            text-transform: uppercase;
-            margin: 25px 0;
-        }
-
-        .rut {
-            font-size: 16px;
-            color: #444;
-            margin-bottom: 25px;
-        }
-
-        .title-name {
-            font-size: 17px;
-            text-transform: uppercase;
-            color: #444;
-            margin: 20px 0;
-            padding: 0 10px;
-        }
-
-        .grade-info {
-            font-size: 15px;
-            color: #444;
-            margin-bottom: 20px;
-        }
-
-        .distincion {
-            font-weight: bold;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        .registry-info {
-            font-weight: bold;
-            font-size: 15px;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        /* FOOTER NEGRO */
-        .footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            font-size: 14px;
-            margin-top: auto;
-        }
-
-        /* BOTÓN FLOTANTE CHAT */
-        .chat-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #007bff; /* Azul chat */
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            z-index: 1000;
-        }
+        /* FOOTER Y CHAT */
+        .footer { background-color: #333; color: #fff; text-align: center; padding: 15px; font-size: 14px; margin-top: auto; }
+        .chat-btn { position: fixed; bottom: 20px; right: 20px; background-color: #007bff; color: white; padding: 10px 20px; border-radius: 25px; font-weight: bold; display: flex; align-items: center; gap: 8px; cursor: pointer; z-index: 1000; }
         
     </style>
 </head>
@@ -182,10 +179,21 @@
         <h2>Validación De Certificado</h2>
 
         <div id="search-view">
-            <label for="codigoInput">Codigo</label>
-            <input type="text" id="codigoInput" class="input-box" placeholder="">
+            <p style="margin-bottom: 15px;">Por favor verifique que no es un robot para ver el documento:</p>
             
-            <button class="btn-verificar" onclick="verificarCodigo()">Verificar</button>
+            <div class="captcha-box">
+                <div class="captcha-checkbox" onclick="activarCaptcha(this)">
+                    <div class="spinner"></div>
+                    <div class="checkmark">✔</div>
+                </div>
+                <div class="captcha-label">No soy un robot</div>
+                <div class="captcha-logo">
+                    <div class="recaptcha-icon"></div>
+                    <div class="recaptcha-text">reCAPTCHA</div>
+                </div>
+            </div>
+
+            <button class="btn-verificar">Verificar</button>
         </div>
 
         <div id="result-view">
@@ -245,27 +253,34 @@
     </div>
 
     <script>
-        function verificarCodigo() {
-            // 1. Obtenemos lo que escribió el usuario
-            var codigoIngresado = document.getElementById("codigoInput").value;
-            
-            // Elimina espacios en blanco por si acaso
-            codigoIngresado = codigoIngresado.trim();
+        function activarCaptcha(elemento) {
+            // Evitar doble clic
+            if (elemento.classList.contains('active')) return;
+            elemento.classList.add('active');
 
-            // 2. El código que aparece en tu foto
-            var codigoCorrecto = "765174600e18cfc7580457b2dbefdfc7";
+            var spinner = elemento.querySelector('.spinner');
+            var checkmark = elemento.querySelector('.checkmark');
 
-            // 3. Comparamos
-            if (codigoIngresado === codigoCorrecto) {
-                // Si es correcto, ocultamos el buscador y mostramos el resultado
-                document.getElementById("search-view").style.display = "none";
-                document.getElementById("result-view").style.display = "block";
-            } else {
-                // Si es incorrecto, mostramos alerta
-                alert("Código no válido. Por favor verifique.");
-            }
+            // 1. Mostrar spinner de carga
+            spinner.style.display = 'block';
+
+            // 2. Esperar 1.5 segundos simulando "pensar"
+            setTimeout(function() {
+                spinner.style.display = 'none';
+                checkmark.style.display = 'block';
+                
+                // 3. Esperar medio segundo y mostrar el resultado
+                setTimeout(function() {
+                    document.getElementById("search-view").style.display = "none";
+                    document.getElementById("result-view").style.display = "block";
+                }, 600);
+
+            }, 1500);
         }
     </script>
 
 </body>
 </html>
+
+            
+            
