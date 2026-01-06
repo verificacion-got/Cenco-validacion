@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validación de Certificado - CFT CENCO</title>
     <style>
-        /* ESTILOS GENERALES (IGUAL AL ANTERIOR) */
+        /* ESTILOS GENERALES */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -29,6 +29,7 @@
             margin-bottom: 5px;
         }
 
+        /* Ajusta el ancho máximo del logo si es necesario */
         .logo-img {
             max-width: 220px;
             height: auto;
@@ -54,7 +55,7 @@
             background-color: #f9f9f9;
             border: 1px solid #d3d3d3;
             border-radius: 3px;
-            width: 300px; /* Ancho estándar de recaptcha */
+            width: 300px;
             height: 74px;
             display: flex;
             align-items: center;
@@ -97,7 +98,6 @@
             opacity: 0.5;
         }
         
-        /* Simulación visual del logo de recaptcha con CSS puro */
         .recaptcha-icon {
             width: 20px;
             height: 20px;
@@ -112,7 +112,6 @@
             color: #555;
         }
 
-        /* Animación de carga (spinner) */
         .spinner {
             border: 3px solid #f3f3f3;
             border-top: 3px solid #3498db;
@@ -120,15 +119,14 @@
             width: 16px;
             height: 16px;
             animation: spin 1s linear infinite;
-            display: none; /* Oculto al inicio */
+            display: none; 
         }
 
-        /* Check verde */
         .checkmark {
             color: #009e55;
             font-size: 22px;
             font-weight: bold;
-            display: none; /* Oculto al inicio */
+            display: none; 
         }
 
         @keyframes spin {
@@ -143,7 +141,7 @@
             padding: 10px 20px;
             font-size: 16px;
             border-radius: 4px;
-            cursor: pointer; /* Inicialmente parecerá clicable */
+            cursor: pointer;
             width: 100px;
         }
 
@@ -170,8 +168,8 @@
 <body>
 
     <div class="container">
-        <div class="cenco.png">
-            <img src="https://via.placeholder.com/250x80/ffffff/f7a700?text=CFT+CENCO+LOGO" alt="Logo CFT" class="logo-img">
+        <div class="logo-container">
+            <img src="cenco.png" alt="Logo CFT" class="logo-img">
         </div>
 
         <div class="divider"></div>
@@ -254,22 +252,19 @@
 
     <script>
         function activarCaptcha(elemento) {
-            // Evitar doble clic
             if (elemento.classList.contains('active')) return;
             elemento.classList.add('active');
 
             var spinner = elemento.querySelector('.spinner');
             var checkmark = elemento.querySelector('.checkmark');
 
-            // 1. Mostrar spinner de carga
             spinner.style.display = 'block';
 
-            // 2. Esperar 1.5 segundos simulando "pensar"
+            // Tiempo de espera para simular carga
             setTimeout(function() {
                 spinner.style.display = 'none';
                 checkmark.style.display = 'block';
                 
-                // 3. Esperar medio segundo y mostrar el resultado
                 setTimeout(function() {
                     document.getElementById("search-view").style.display = "none";
                     document.getElementById("result-view").style.display = "block";
@@ -282,5 +277,3 @@
 </body>
 </html>
 
-            
-            
