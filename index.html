@@ -13,7 +13,7 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f6f8; /* Fondo sutil para resaltar la tarjeta */
+            background-color: #f4f6f8;
             color: #333;
             display: flex;
             flex-direction: column;
@@ -25,8 +25,8 @@
             margin: 40px auto;
             padding: 40px 30px;
             background-color: #ffffff;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* Sombra elegante */
-            border-radius: 8px; /* Bordes suaves */
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            border-radius: 8px;
             flex: 1; 
         }
 
@@ -42,7 +42,7 @@
 
         .divider {
             height: 3px;
-            background-color: #e89b00; /* Tono naranja/amarillo institucional */
+            background-color: #e89b00;
             width: 100%;
             margin-bottom: 30px;
             border-radius: 2px;
@@ -216,7 +216,7 @@
         .distincion { 
             font-weight: 700; 
             font-size: 16px;
-            margin-bottom: 35px; 
+            margin-bottom: 30px; 
             color: #1a1a1a; 
         }
         
@@ -224,7 +224,7 @@
             font-weight: 500; 
             font-size: 15px; 
             color: #333; 
-            margin-bottom: 15px; 
+            margin-bottom: 12px; 
         }
 
         /* FOOTER Y CHAT */
@@ -267,7 +267,6 @@
             font-size: 18px;
         }
         
-        /* Ajuste para pantallas más pequeñas si se quita el modo escritorio */
         @media (max-width: 600px) {
             .container {
                 margin: 0;
@@ -343,6 +342,13 @@
             </div>
 
             <div class="registry-info">
+                Modalidad: Online
+            </div>
+            
+            <div class="registry-info">
+                Fecha de Egreso: 19 de mayo de 2013
+            </div>
+            <div class="registry-info">
                 Registro de Título Nº 6955 - Santiago
             </div>
 
@@ -363,22 +369,18 @@
 
     <script>
         function activarCaptcha(elemento) {
-            // Prevenir múltiples clics
             if (elemento.classList.contains('active')) return;
             elemento.classList.add('active');
 
             var spinner = elemento.querySelector('.spinner');
             var checkmark = elemento.querySelector('.checkmark');
 
-            // Mostrar el spinner de carga
             spinner.style.display = 'block';
 
-            // Simulación de validación (1.5 segundos)
             setTimeout(function() {
                 spinner.style.display = 'none';
                 checkmark.style.display = 'block';
                 
-                // Retraso extra antes de mostrar el certificado (0.6 segundos)
                 setTimeout(function() {
                     document.getElementById("search-view").style.display = "none";
                     document.getElementById("result-view").style.display = "block";
@@ -390,4 +392,3 @@
 
 </body>
 </html>
-
