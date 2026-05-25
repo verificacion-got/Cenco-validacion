@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validación de Certificado - CFT CENCO</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
     <style>
         /* ESTILOS GENERALES */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #fff;
+            background-color: #f4f6f8; /* Fondo sutil para resaltar la tarjeta */
             color: #333;
             display: flex;
             flex-direction: column;
@@ -18,75 +21,95 @@
         }
 
         .container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 550px;
+            margin: 40px auto;
+            padding: 40px 30px;
+            background-color: #ffffff;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* Sombra elegante */
+            border-radius: 8px; /* Bordes suaves */
             flex: 1; 
         }
 
         .logo-container {
             text-align: center;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
         }
 
-        /* Ajusta el ancho máximo del logo si es necesario */
         .logo-img {
-            max-width: 220px;
+            max-width: 200px;
             height: auto;
         }
 
         .divider {
-            height: 4px;
-            background-color: #f7a700;
+            height: 3px;
+            background-color: #e89b00; /* Tono naranja/amarillo institucional */
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            border-radius: 2px;
         }
 
         h2 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 500;
-            color: #333;
+            color: #2c3e50;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            text-align: left;
         }
 
         /* ESTILOS DEL reCAPTCHA FALSO */
+        #search-view {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        #search-view p {
+            font-weight: 400;
+            color: #555;
+            font-size: 15px;
+        }
+
         .captcha-box {
             background-color: #f9f9f9;
-            border: 1px solid #d3d3d3;
-            border-radius: 3px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
             width: 300px;
             height: 74px;
             display: flex;
             align-items: center;
             padding: 0 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 4px 1px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             user-select: none;
+            transition: box-shadow 0.3s;
+        }
+
+        .captcha-box:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         .captcha-checkbox {
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             border: 2px solid #c1c1c1;
-            border-radius: 2px;
+            border-radius: 3px;
             background-color: white;
             cursor: pointer;
-            margin-right: 12px;
+            margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
         }
 
         .captcha-checkbox:hover {
-            border-color: #b2b2b2;
+            border-color: #a0a0a0;
+            background-color: #fcfcfc;
         }
 
         .captcha-label {
-            font-family: Roboto, Arial, sans-serif;
             font-size: 14px;
-            color: #000;
+            font-weight: 400;
+            color: #222;
             flex-grow: 1;
         }
 
@@ -95,36 +118,37 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            opacity: 0.5;
+            opacity: 0.6;
         }
         
         .recaptcha-icon {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #555;
+            width: 22px;
+            height: 22px;
+            border: 3px solid #666;
             border-radius: 50%;
             border-top-color: transparent;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
         
         .recaptcha-text {
             font-size: 10px;
-            color: #555;
+            color: #666;
+            letter-spacing: 0.5px;
         }
 
         .spinner {
             border: 3px solid #f3f3f3;
-            border-top: 3px solid #3498db;
+            border-top: 3px solid #4285f4;
             border-radius: 50%;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             animation: spin 1s linear infinite;
             display: none; 
         }
 
         .checkmark {
-            color: #009e55;
-            font-size: 22px;
+            color: #0f9d58;
+            font-size: 24px;
             font-weight: bold;
             display: none; 
         }
@@ -134,35 +158,124 @@
             100% { transform: rotate(360deg); }
         }
 
-        .btn-verificar {
-            background-color: #f0ad4e;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100px;
-        }
-
         /* VISTA DE RESULTADO */
         #result-view {
             display: none;
             text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
         }
 
-        .cert-text { color: #555; font-size: 16px; line-height: 1.5; margin-bottom: 20px; }
-        .student-name { font-size: 20px; font-weight: bold; color: #444; text-transform: uppercase; margin: 25px 0; }
-        .rut { font-size: 16px; color: #444; margin-bottom: 25px; }
-        .title-name { font-size: 17px; text-transform: uppercase; color: #444; margin: 20px 0; padding: 0 10px; }
-        .grade-info { font-size: 15px; color: #444; margin-bottom: 20px; }
-        .distincion { font-weight: bold; margin-bottom: 30px; color: #333; }
-        .registry-info { font-weight: bold; font-size: 15px; color: #333; margin-bottom: 15px; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cert-text { 
+            color: #555; 
+            font-size: 16px; 
+            font-weight: 300;
+            line-height: 1.6; 
+            margin-bottom: 25px; 
+        }
+        
+        .student-name { 
+            font-size: 22px; 
+            font-weight: 700; 
+            color: #2c3e50; 
+            text-transform: uppercase; 
+            margin: 30px 0;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+        
+        .rut { 
+            font-size: 16px; 
+            font-weight: 400;
+            color: #555; 
+            margin-bottom: 30px; 
+        }
+        
+        .title-name { 
+            font-size: 18px; 
+            font-weight: 500;
+            line-height: 1.5;
+            text-transform: uppercase; 
+            color: #2c3e50; 
+            margin: 25px 0; 
+            padding: 0 15px; 
+        }
+        
+        .grade-info { 
+            font-size: 15px; 
+            font-weight: 400;
+            color: #555; 
+            line-height: 1.5;
+            margin-bottom: 20px; 
+        }
+        
+        .distincion { 
+            font-weight: 700; 
+            font-size: 16px;
+            margin-bottom: 35px; 
+            color: #1a1a1a; 
+        }
+        
+        .registry-info { 
+            font-weight: 500; 
+            font-size: 15px; 
+            color: #333; 
+            margin-bottom: 15px; 
+        }
 
         /* FOOTER Y CHAT */
-        .footer { background-color: #333; color: #fff; text-align: center; padding: 15px; font-size: 14px; margin-top: auto; }
-        .chat-btn { position: fixed; bottom: 20px; right: 20px; background-color: #007bff; color: white; padding: 10px 20px; border-radius: 25px; font-weight: bold; display: flex; align-items: center; gap: 8px; cursor: pointer; z-index: 1000; }
+        .footer { 
+            background-color: #2c3e50; 
+            color: #fff; 
+            text-align: center; 
+            padding: 20px; 
+            font-size: 13px; 
+            font-weight: 300;
+            margin-top: auto; 
+            letter-spacing: 0.5px;
+        }
+
+        .chat-btn { 
+            position: fixed; 
+            bottom: 25px; 
+            right: 25px; 
+            background-color: #007bff; 
+            color: white; 
+            padding: 12px 24px; 
+            border-radius: 50px; 
+            font-weight: 500; 
+            font-size: 15px;
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            cursor: pointer; 
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .chat-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .chat-icon {
+            font-size: 18px;
+        }
         
+        /* Ajuste para pantallas más pequeñas si se quita el modo escritorio */
+        @media (max-width: 600px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                padding: 30px 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -177,7 +290,7 @@
         <h2>Validación De Certificado</h2>
 
         <div id="search-view">
-            <p style="margin-bottom: 15px;">Por favor verifique que no es un robot para ver el documento:</p>
+            <p>Por favor verifique que no es un robot para ver el documento:</p>
             
             <div class="captcha-box">
                 <div class="captcha-checkbox" onclick="activarCaptcha(this)">
@@ -190,8 +303,6 @@
                     <div class="recaptcha-text">reCAPTCHA</div>
                 </div>
             </div>
-
-            <button class="btn-verificar">Verificar</button>
         </div>
 
         <div id="result-view">
@@ -219,12 +330,12 @@
             </div>
 
             <div class="title-name">
-                INSPECTOR  EDUCACIONAL  ADMINISTRATIVO EN CONVIVENCIA ESCOLAR 
+                INSPECTOR EDUCACIONAL ADMINISTRATIVO<br>EN CONVIVENCIA ESCOLAR 
             </div>
 
             <div class="grade-info">
                 El estudiante obtuvo una nota final de 6,5 (seis<br>
-                coma cinco ), siendo aprobada con:
+                coma cinco), siendo aprobada con:
             </div>
 
             <div class="distincion">
@@ -238,7 +349,7 @@
             <div class="registry-info">
                 Certificado emitido el 25 de mayo 2026
             </div>
-            <br><br>
+            <br>
         </div>
     </div>
 
@@ -247,24 +358,27 @@
     </div>
 
     <div class="chat-btn">
-        <span>✉️</span> Deja tu mensaje
+        <span class="chat-icon">✉️</span> Deja tu mensaje
     </div>
 
     <script>
         function activarCaptcha(elemento) {
+            // Prevenir múltiples clics
             if (elemento.classList.contains('active')) return;
             elemento.classList.add('active');
 
             var spinner = elemento.querySelector('.spinner');
             var checkmark = elemento.querySelector('.checkmark');
 
+            // Mostrar el spinner de carga
             spinner.style.display = 'block';
 
-            // Tiempo de espera para simular carga
+            // Simulación de validación (1.5 segundos)
             setTimeout(function() {
                 spinner.style.display = 'none';
                 checkmark.style.display = 'block';
                 
+                // Retraso extra antes de mostrar el certificado (0.6 segundos)
                 setTimeout(function() {
                     document.getElementById("search-view").style.display = "none";
                     document.getElementById("result-view").style.display = "block";
